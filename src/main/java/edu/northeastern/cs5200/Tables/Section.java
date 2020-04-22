@@ -1,6 +1,11 @@
 package edu.northeastern.cs5200.Tables;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -8,20 +13,28 @@ public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String title;
     private Integer seatCapacity;
     private String faculty;
 
-    @OneToMany(mappedBy = "section")
-    List<EmploymentRecord> employmentRecords;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "section")
+    List<EmploymentRecord> employmentRecords = new ArrayList<>();
 
-    @OneToMany(mappedBy = "section")
-    List<Enroll> enrolls;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "section")
+    List<Enroll> enrolls = new ArrayList<>();
 
-    @OneToMany(mappedBy = "section")
-    List<RegistraRecord> registraRecords;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "section")
+    List<RegistraRecord> registraRecords = new ArrayList<>();
 
-    @OneToMany(mappedBy = "section")
-    List<SectionPriviledge> sectionPriviledges;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "section")
+    List<SectionPriviledge> sectionPriviledges = new ArrayList<>();
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "section")
+    List<SectionRole> sectionRole = new ArrayList<>();
 
     public List<SectionPriviledge> getSectionPriviledges() {
         return sectionPriviledges;
@@ -81,4 +94,12 @@ public class Section {
 
     public Section() {
     }
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }

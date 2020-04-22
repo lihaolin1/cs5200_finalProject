@@ -3,29 +3,39 @@ package edu.northeastern.cs5200.Tables;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Widget {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Widget extends LearningModule{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
+//
+//    @ManyToOne
+//    @JsonIgnore
+//    private LearningModule learningModule;
+	private String Widget_name;
+	
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "widget")
+    private List<RawHtml> rawHtmls = new ArrayList<>();
 
-    @ManyToOne
-    @JsonIgnore
-    private LearningModule learningModule;
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "widget")
+    private List<Slide> slides = new ArrayList<>();
 
-    @OneToMany(mappedBy = "widget")
-    private List<RawHtml> rawHtmls;
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "widget")
+    private List<textDocument> textDocuments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "widget")
-    private List<Slide> slides;
-
-    @OneToMany(mappedBy = "widget")
-    private List<textDocument> textDocuments;
-
-    @OneToMany(mappedBy = "widget")
-    private List<YoutubeVideo> youtubeVideos;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "widget")
+    private List<YoutubeVideo> youtubeVideos = new ArrayList<>();
 
     public List<YoutubeVideo> getYoutubeVideos() {
         return youtubeVideos;
@@ -55,26 +65,34 @@ public class Widget {
         return rawHtmls;
     }
 
-    public void setRawHtmls(List<RawHtml> rawHtmls) {
-        this.rawHtmls = rawHtmls;
-    }
-
-    public LearningModule getLearningModule() {
-        return learningModule;
-    }
-
-    public void setLearningModule(LearningModule learningModule) {
-        this.learningModule = learningModule;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public void setRawHtmls(List<RawHtml> rawHtmls) {
+//        this.rawHtmls = rawHtmls;
+//    }
+//
+//    public LearningModule getLearningModule() {
+//        return learningModule;
+//    }
+//
+//    public void setLearningModule(LearningModule learningModule) {
+//        this.learningModule = learningModule;
+//    }
+//
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public Widget() {
     }
+
+	public String getWidget_name() {
+		return Widget_name;
+	}
+
+	public void setWidget_name(String widget_name) {
+		Widget_name = widget_name;
+	}
 }

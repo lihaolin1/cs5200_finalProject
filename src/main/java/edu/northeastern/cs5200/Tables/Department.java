@@ -2,7 +2,13 @@ package edu.northeastern.cs5200.Tables;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Department {
@@ -10,29 +16,31 @@ public class Department {
     private String name;
     private String location;
     private String dean;
-
-    @ManyToOne
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "department",  cascade = CascadeType.ALL)
     @JsonIgnore
-    private Course course;
+    private List<Course> courses = new ArrayList<>();
 
-    @ManyToOne
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "departments",  cascade = CascadeType.ALL)
     @JsonIgnore
-    private PersonProfile personProfile;
+    private List<Department_assignment> personProfile = new ArrayList<>();
 
-    public PersonProfile getPersonProfile() {
+    
+    public List<Department_assignment> getPersonProfile() {
         return personProfile;
     }
 
-    public void setPersonProfile(PersonProfile personProfile) {
+    public void setPersonProfile(List<Department_assignment> personProfile) {
         this.personProfile = personProfile;
     }
 
-    public Course getCourse() {
-        return course;
+    public List<Course> getCourse() {
+        return courses;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourse(List<Course> courses) {
+        this.courses = courses;
     }
 
     public String getName() {

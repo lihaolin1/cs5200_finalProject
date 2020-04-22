@@ -3,6 +3,11 @@ package edu.northeastern.cs5200.Tables;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,8 +28,12 @@ public class Enroll {
     @JsonIgnore
     private Section section;
 
-    @OneToMany(mappedBy = "enroll")
-    private List<EnrollPriviledge> enrollPriviledges;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "enroll")
+    private List<EnrollPriviledge> enrollPriviledges = new ArrayList<>();
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "enroll")
+    private List<EnrollRole> enrollRole = new ArrayList<>();
 
     public Student getStudent() {
         return student;

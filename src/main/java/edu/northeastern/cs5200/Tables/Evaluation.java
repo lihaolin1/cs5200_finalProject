@@ -3,25 +3,31 @@ package edu.northeastern.cs5200.Tables;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Evaluation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-//    private String simpleEssayAssignment;
-//    private String submissionAssignment;
+public class Evaluation extends LearningModule{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
 
-    @ManyToOne
-    @JsonIgnore
-    private LearningModule learningModule;
+//    @ManyToOne
+//    @JsonIgnore
+//    private LearningModule learningModule;
+	private String evaluation_name;
+	
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "evaluation")
+    private List<SimpleEssayAssignment> simpleEssayAssignment = new ArrayList<>();
 
-    @OneToMany(mappedBy = "evaluation")
-    private List<SimpleEssayAssignment> simpleEssayAssignment;
-
-    @OneToMany(mappedBy = "evaluation")
-    private List<SubmissionAssignment> submissionAssignments;
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "evaluation")
+    private List<SubmissionAssignment> submissionAssignments = new ArrayList<>();
 
     public List<SubmissionAssignment> getSubmissionAssignments() {
         return submissionAssignments;
@@ -39,21 +45,21 @@ public class Evaluation {
         this.simpleEssayAssignment = simpleEssayAssignment;
     }
 
-    public LearningModule getLearningModule() {
-        return learningModule;
-    }
-
-    public void setLearningModule(LearningModule learningModule) {
-        this.learningModule = learningModule;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public LearningModule getLearningModule() {
+//        return learningModule;
+//    }
+//
+//    public void setLearningModule(LearningModule learningModule) {
+//        this.learningModule = learningModule;
+//    }
+//
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
 //    public String getSimpleEssayAssignment() {
 //        return simpleEssayAssignment;
@@ -73,4 +79,12 @@ public class Evaluation {
 
     public Evaluation() {
     }
+
+	public String getEvaluation_name() {
+		return evaluation_name;
+	}
+
+	public void setEvaluation_name(String evaluation_name) {
+		this.evaluation_name = evaluation_name;
+	}
 }

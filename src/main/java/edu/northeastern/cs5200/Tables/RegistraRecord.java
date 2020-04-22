@@ -9,6 +9,8 @@ public class RegistraRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+    private Integer CRN;
 
     @ManyToOne
     @JsonIgnore
@@ -44,4 +46,12 @@ public class RegistraRecord {
 
     public RegistraRecord() {
     }
+
+	public Integer getCRN() {
+		return CRN;
+	}
+
+	public void setCRN(Integer cRN) {
+		CRN = cRN;
+	}
 }

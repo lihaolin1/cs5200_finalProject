@@ -1,23 +1,29 @@
 package edu.northeastern.cs5200.Tables;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Student extends PersonProfile{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer Status;
     private Boolean finacialAid;
     private Boolean workStudy;
     private Double gpa;
     private Double scholarship;
 
-    @OneToMany(mappedBy = "student")
-    private List<Enroll> enrolls;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "student")
+    private List<Enroll> enrolls = new ArrayList<>();
 
     public List<Enroll> getEnrolls() {
         return enrolls;
@@ -27,13 +33,13 @@ public class Student {
         this.enrolls = enrolls;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
     public Boolean getFinacialAid() {
         return finacialAid;
@@ -69,4 +75,12 @@ public class Student {
 
     public Student() {
     }
+
+	public Integer getStatus() {
+		return Status;
+	}
+
+	public void setStatus(Integer status) {
+		Status = status;
+	}
 }

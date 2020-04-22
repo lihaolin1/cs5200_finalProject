@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin page</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet" />
+
+</head>
+<body>
+    <h1>Register Faculty</h1>
+    <p>Please fill in this form to create a faculty.</p>
+    
+    <form>
+     <label for="facultyId">ID:</label><br>
+  	 <input type="text" id="facultyId" name="facultyId" placeholder="Faculty ID" required><br>
+     <label for="username">Username:</label><br>
+  	 <input type="text" id="username" name="username" placeholder="Username" required><br>
+  	 <label for="password">Password:</label><br>
+  	 <input type="text" id="password" name="password" placeholder="Password" required><br>
+  	 <label for="fname">First Name:</label><br>
+  	 <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
+  	 <label for="lname">Last Name:</label><br>
+  	 <input type="text" id="lname" name="lname" placeholder="Last Name" required><br>
+  	 <label for="benefit">Any Benefits:</label><br>
+  	 <input type="text" id="benefit" name="benefit" placeholder="Specify Benefits" required><br>
+  	 <label for="ts">Tenureship Status:</label><br>
+  	 <input type="text" id="ts" name="ts" placeholder="Tenured or not" required><br>
+  	 <label for="parking">Parking Information:</label><br>
+  	 <input type="text" id="parking" name="parking" placeholder="Parking Information" required><br>
+  	 <label for="bank">Bank Account:</label><br>
+  	 <input type="text" id="bank" name="bank" placeholder="Bank Account" required><br> 
+  	 <input type="submit"
+			onclick="window.location = '/faculty/' + username.value + '/'+ facultyId.value+'/'+ password.value + '/'+fname.value+'/'+lname.value+'/'+benefit.value+'/'+ts.value+'/'+parking.value+'/'+bank.value; return false;" />
+	</form> 
+	
+	<br /><br /><br /><br />
+	
+	<h1>Retrieve Specific Faculty</h1>
+	<p>Please enter an id to find a faculty</p>
+	<form>
+	 <label for="facultyId">Faculty ID:</label><br>
+  	 <input type="text" id="facultyId" name="facultyId" placeholder="ID" required><br>
+	 <input type="submit" onclick="window.location = '/findFacultyById/' + facultyId.value;return false;"/>
+	</form>
+	
+	<br /><br /><br /><br />
+	
+	<h1>Remove Faculties Record</h1>
+	<p>Please enter an id to remove a faculty</p>
+	<form>
+	 <label for="facultyId">Faculty ID:</label><br>
+  	 <input type="text" id="facultyId" name="facultyId" placeholder="ID" required><br>
+	 <input type="submit" onclick="window.location = '/deleteFaculty/' + facultyId.value;return false;"/>
+	</form>
+	
+	<br /><br /><br /><br />
+	
+	<h1>Retrieve All Faculties</h1>
+	<p>Please click on button below to retrive all faculties</p>
+  	<form action="/findAllFaculty">
+  	 <input type="submit" value="Find All Faculty">
+  	</form>
+  	
+  	<br /><br /><br /><br />
+  	
+
+  	<h1>Update a Faculty Record</h1>
+    <p>Please enter the ID of the faculty, and enter -1 for any fields that does not need to be changed.</p>
+    
+    <form>
+     <label for="facultyId">ID:</label><br>
+  	 <input type="text" id="facultyId" name="facultyId" placeholder="Faculty ID" required><br>
+     <label for="username">Username:</label><br>
+  	 <input type="text" id="username" name="username" placeholder="New Username, -1 if nothing needs to be changed" required><br>
+  	 <label for="password">Password:</label><br>
+  	 <input type="text" id="password" name="password" placeholder="New Password, -1 if nothing needs to be changed" required><br>
+  	 <label for="fname">First Name:</label><br>
+  	 <input type="text" id="fname" name="fname" placeholder="New First Name, -1 if nothing needs to be changed" required><br>
+  	 <label for="lname">Last Name:</label><br>
+  	 <input type="text" id="lname" name="lname" placeholder="New Last Name, -1 if nothing needs to be changed" required><br>
+  	 <label for="benefit">Any Benefits:</label><br>
+  	 <input type="text" id="benefit" name="benefit" placeholder="New Benefits, -1 if nothing needs to be changed" required><br>
+  	 <label for="ts">Tenureship Status:</label><br>
+  	 <input type="text" id="ts" name="ts" placeholder="New Tenured status, -1 if nothing needs to be changed" required><br>
+  	 <label for="parking">Parking Information:</label><br>
+  	 <input type="text" id="parking" name="parking" placeholder="New Parking Information, -1 if nothing needs to be changed" required><br>
+  	 <label for="bank">Bank Account:</label><br>
+  	 <input type="text" id="bank" name="bank" placeholder="New Bank Account, -1 if nothing needs to be changed" required><br> 
+  	 <input type="submit"
+			onclick="window.location = '/updateFaculty/' + facultyId.value+'/'+ lname.value + '/' + fname.value+'/'+ username.value + '/'+ password.value + '/'+benefit.value+'/'+ts.value+'/'+parking.value+'/'+bank.value; return false;" />
+	</form> 
+	
+	
+	<br /><br /><br /><br />
+
+	<h1>Find All Students for a Faculty</h1>
+	<p>Please enter faculty ID to find all their students</p>
+  	<form>
+  	<label for="facultyID">Your ID:</label><br>
+  	<input type="text" id="facultyID" name="facultyID" placeholder="ID" required><br>
+  	<input type="submit" onclick="window.location = '/findstudents_forinstructor/' + facultyID.value;return false;"/>
+  	</form>   
+  	
+  	<br /><br /><br /><br />
+  	
+  	<h1>Add an address record</h1>
+	<p>Please enter an address and and ID</p>
+	<form>
+	 <label for="facultyId">ID:</label><br>
+  	 <input type="text" id="facultyId" name="facultyId" placeholder="ID" required><br>
+  	 <label for="address">Address:</label><br>
+  	 <input type="text" id="address" name="address" placeholder="Address" required><br>
+	 <input type="submit" onclick="window.location = '/addAddress/' + address.value +'/'+ facultyId.value; return false;"/>
+	</form>
+	
+	<br /><br /><br /><br />
+	
+	<h1>Retrieve All Students</h1>
+	<p>Please click on button below to retrieve all students</p>
+  	<form action="/findAllStudent">
+  	<input type="submit" value="Find All Student">
+  	</form>   
+  	
+  	<br /><br /><br /><br />
+  	
+  	<h1>Retrieve Specific Student</h1>
+	<p>Please enter an id to find a student</p>
+	<form>
+	 <label for="studentId">Student ID:</label><br>
+  	 <input type="text" id="studentId" name="studentId" placeholder="ID" required><br>
+	 <input type="submit" onclick="window.location = '/findStudentById/' + studentId.value;return false;"/>
+	</form>
+  	
+  	<br /><br /><br /><br />
+  	
+  	<h1>Remove Student Record</h1>
+	<p>Please enter an id to remove a student</p>
+	<form>
+	 <label for="studentId">Student ID:</label><br>
+  	 <input type="text" id="studentId" name="studentId" placeholder="ID" required><br>
+	 <input type="submit" onclick="window.location = '/deleteStudent/' + studentId.value;return false;"/>
+	</form>
+	
+	<br /><br /><br /><br />
+	
+
+	<h1>Create Student Record</h1>
+    <p>Please fill in this form to create a student</p>
+    
+    <form>
+     <label for="studentId">ID:</label><br>
+  	 <input type="text" id="studentId" name="studentId" placeholder="Student ID" required><br>
+     <label for="username">Username:</label><br>
+  	 <input type="text" id="username" name="username" placeholder="Username" required><br>
+  	 <label for="password">Password:</label><br>
+  	 <input type="text" id="password" name="password" placeholder="Password" required><br>
+  	 <label for="fname">First Name:</label><br>
+  	 <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
+  	 <label for="lname">Last Name:</label><br>
+  	 <input type="text" id="lname" name="lname" placeholder="Last Name" required><br>
+  	 <label for="status">Year of Student:</label><br>
+  	 <input type="text" id="status" name="status" placeholder="Specify Student Status" required><br>
+  	 <label for="fa">Financial Aid:</label><br>
+  	 <input type="text" id="fa" name="fa" placeholder="Any Financial Aid?" required><br>
+  	 <label for="ws">Work Study:</label><br>
+  	 <input type="text" id="ws" name="ws" placeholder="Any Work Study?n" required><br>
+  	 <label for="gpa">GPA:</label><br>
+  	 <input type="text" id="gpa" name="gpa" placeholder="GPA" required><br> 
+  	 <label for="scholarship">Scholarship Amount:</label><br>
+  	 <input type="text" id="scholarship" name="scholarship" placeholder="Scholarship Amount" required><br> 
+  	 <input type="submit" onclick="window.location = '/student/'+studentId.value+'/'+username.value+'/'+password.value+'/'+fname.value+'/'+lname.value+'/'+status.value+'/'+fa.value+'/'+ws.value+'/'+gpa.value + '/' +scholarship.value ; return false;" />
+	</form> 
+	
+	<br /><br /><br /><br />
+	
+    <h1>Update Student Record</h1>
+    <p>Please fill in this form to update a student, leave fields not needing to be changed as -1.</p>
+    
+    <form>
+     <label for="studentId">ID:</label><br>
+  	 <input type="text" id="studentId" name="studentId" placeholder="Student ID" required><br>
+     <label for="username">Username:</label><br>
+  	 <input type="text" id="username" name="username" placeholder="Username, -1 if nothing needs to be changed" required><br>
+  	 <label for="password">Password:</label><br>
+  	 <input type="text" id="password" name="password" placeholder="Password, -1 if nothing needs to be changed" required><br>
+  	 <label for="fname">First Name:</label><br>
+  	 <input type="text" id="fname" name="fname" placeholder="First Name, -1 if nothing needs to be changed" required><br>
+  	 <label for="lname">Last Name:</label><br>
+  	 <input type="text" id="lname" name="lname" placeholder="Last Name, -1 if nothing needs to be changed" required><br>
+  	 <label for="status">Year of Student:</label><br>
+  	 <input type="text" id="status" name="status" placeholder="Specify Student Status, -1 if nothing needs to be changed" required><br>
+  	 <label for="fa">Financial Aid:</label><br>
+  	 <input type="text" id="fa" name="fa" placeholder="Any Financial Aid?, -1 if nothing needs to be changed" required><br>
+  	 <label for="ws">Work Study:</label><br>
+  	 <input type="text" id="ws" name="ws" placeholder="Any Work Study?, -1 if nothing needs to be changed" required><br>
+  	 <label for="gpa">GPA:</label><br>
+  	 <input type="text" id="gpa" name="gpa" placeholder="GPA, -1 if nothing needs to be changed" required><br> 
+  	 <label for="scholarship">Scholarship Amount:</label><br>
+  	 <input type="text" id="scholarship" name="scholarship" placeholder="Scholarship Amount, -1 if nothing needs to be changed" required><br> 
+  	 <input type="submit"
+			onclick="window.location = '/updateStudent/' + studentId.value+'/'+ username.value + '/'+ password.value + '/'+fname.value+'/'+lname.value+'/'+status.value+'/'+fa.value+'/'+ws.value+'/'+gpa.value + '/' +scholarship.value ; return false;" />
+	</form> 
+	
+	<br /><br /><br /><br />
+	
+	<h1>Enroll a Student in a Section</h1>
+	<p>Please enter the student ID and section title.</p>
+	<form>
+	 <label for="studentId">ID:</label><br>
+  	 <input type="text" id="studentId" name="studentId" placeholder="ID" required><br>
+  	 <label for="section">Section Title:</label><br>
+  	 <input type="text" id="section" name="section" placeholder="Section Title" required><br>
+	 <input type="submit" onclick="window.location = '/enrollStudentInSection/' + studentId.value +'/'+ section.value; return false;"/>
+	</form>
+	
+	<br /><br /><br /><br />
+	
+	<h1>Retrieve All Enrollment Records</h1>
+	<p>Please click on button below to retrieve all enroolment records</p>
+  	<form action="/getAllEnrollment">
+  	<input type="submit" value="Find All Enrollment Records">
+  	</form>   
+  	
+  	<h1>Find All Enrollments for a Student</h1>
+	<p>Please enter student ID to find all their enrollments</p>
+  	<form>
+  	<label for="studentID">Your ID:</label><br>
+  	<input type="text" id="studentID" name="studentID" placeholder="ID" required><br>
+  	<input type="submit" onclick="window.location = '/findEnrollByStudent/' + studentID.value;return false;"/>
+  	</form>   
+
+   </body>	
+  <style>
+  /* Style code provided by https://www.w3schools.com/howto/howto_css_register_form.asp */
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Add padding to containers */
+  .container {
+    padding: 16px;
+    background-color: white;
+  }
+
+  /* Full-width input fields */
+  input[type=text], input[type=password] {
+    width: 90%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+  /* Overwrite default styles of hr */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  /* Set a style for the submit button */
+  .registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  .registerbtn:hover {
+    opacity: 1;
+  }
+
+  /* Add a blue text color to links */
+  a { 
+    color: dodgerblue;
+  }
+
+  /* Set a grey background color and center the text of the "sign in" section */
+  .signin {
+    background-color: #f1f1f1;
+    text-align: center;
+  }
+  </style>
+</body>
+</html>

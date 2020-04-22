@@ -1,9 +1,14 @@
 package edu.northeastern.cs5200.Tables;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.xml.internal.ws.api.addressing.AddressingVersion;
+//import com.sun.xml.internal.ws.api.addressing.AddressingVersion;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,23 +18,35 @@ public class EmploymentRecord {
     private Integer id;
     private String officeHour;
     private String type;
-
-    @OneToMany(mappedBy = "employmentRecord")
-    private List<CoursePriviledge> coursePriviledge;
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "employmentRecord")
+    private List<CoursePriviledge> coursePriviledge = new ArrayList<>();
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "employmentRecord")
+    private List<CourseRole> courseRole = new ArrayList<>();
 
     @ManyToOne
     @JsonIgnore
     private PersonProfile personProfile;
-
-    @OneToMany(mappedBy = "employmentRecord")
-    private List<SectionPriviledge> sectionPriviledges;
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "employmentRecord")
+    private List<SectionPriviledge> sectionPriviledges = new ArrayList<>();
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "employmentRecord")
+    private List<SectionRole> sectionRole = new ArrayList<>();
 
     @ManyToOne
     @JsonIgnore
     private Section section;
 
-    @OneToMany(mappedBy = "employmentRecord")
-    private List<EnrollPriviledge> enrollPriviledges;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "employmentRecord")
+    private List<EnrollPriviledge> enrollPriviledges = new ArrayList<>();
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "employmentRecord")
+    private List<EnrollRole> enrollRole = new ArrayList<>();
 
     public Section getSection() {
         return section;
@@ -46,6 +63,13 @@ public class EmploymentRecord {
     public void setEnrollPriviledges(List<EnrollPriviledge> enrollPriviledges) {
         this.enrollPriviledges = enrollPriviledges;
     }
+    public List<EnrollRole> getEnrollRole() {
+        return enrollRole;
+    }
+
+    public void setEnrollRole(List<EnrollRole> enrollRole) {
+        this.enrollRole = enrollRole;
+    }
 
     public List<SectionPriviledge> getSectionPriviledges() {
         return sectionPriviledges;
@@ -53,6 +77,13 @@ public class EmploymentRecord {
 
     public void setSectionPriviledges(List<SectionPriviledge> sectionPriviledges) {
         this.sectionPriviledges = sectionPriviledges;
+    }
+    public List<SectionRole> getSectionRole() {
+        return sectionRole;
+    }
+
+    public void setSectionRole(List<SectionRole> sectionRole) {
+        this.sectionRole = sectionRole;
     }
 
     public PersonProfile getPersonProfile() {
@@ -69,6 +100,13 @@ public class EmploymentRecord {
 
     public void setCoursePriviledge(List<CoursePriviledge> coursePriviledge) {
         this.coursePriviledge = coursePriviledge;
+    }
+    public List<CourseRole> getCourseRole() {
+        return courseRole;
+    }
+
+    public void setCourseRole(List<CourseRole> courseRole) {
+        this.courseRole = courseRole;
     }
 
     public Integer getId() {

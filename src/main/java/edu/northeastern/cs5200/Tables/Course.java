@@ -1,6 +1,13 @@
 package edu.northeastern.cs5200.Tables;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,42 +16,61 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
+    private String description;
 //    private String semester;
     private Date calendar;
 
-    @OneToMany(mappedBy = "course")
-    private List<Department> departments;
+    @ManyToOne
+    private Department department;
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "course")
+    @JsonIgnore
+    private List<CoursePriviledge> coursePriviledges= new ArrayList<>();
 
-    @OneToMany(mappedBy = "course")
-    private List<CoursePriviledge> coursePriviledges;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "course")
+    @JsonIgnore
+    private List<CourseRole> courseRole= new ArrayList<>();
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "course")
+    @JsonIgnore
+    private List<RegistraRecord> registraRecords= new ArrayList<>();
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "course")
+    @JsonIgnore
+    private List<LearningModule> learningModules= new ArrayList<>();
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "course")
+    @JsonIgnore
+    private List<Semester_assignment> semesters= new ArrayList<>();
 
-    @OneToMany(mappedBy = "course")
-    private List<RegistraRecord> registraRecords;
-
-    @OneToMany(mappedBy = "course")
-    private List<LearningModule> learningModules;
-
-    @OneToMany(mappedBy = "course")
-    private List<Semester> semesters;
-
-    public List<Semester> getSemesters() {
+    public List<Semester_assignment> getSemesters() {
         return semesters;
     }
 
-    public void setSemesters(List<Semester> semesters) {
+    public void setSemesters(List<Semester_assignment> semesters) {
         this.semesters = semesters;
     }
 
-    public List<Department> getDepartments() {
-        return departments;
+    public Department getDepartments() {
+        return department;
     }
 
-    public void setDepartments(List<Department> departments) {
-        this.departments = departments;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public List<CoursePriviledge> getCoursePriviledges() {
         return coursePriviledges;
+    }
+    
+    public List<CourseRole> getCourseRole() {
+        return courseRole;
     }
 
     public void setCoursePriviledges(List<CoursePriviledge> coursePriviledges) {
@@ -93,4 +119,20 @@ public class Course {
 
     public Course() {
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

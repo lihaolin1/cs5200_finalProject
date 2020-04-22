@@ -1,33 +1,50 @@
 package edu.northeastern.cs5200.Tables;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class PersonProfile {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(generator="customGenerationId")
+    //@Column(name="id", insertable=true, updatable=true, unique=true, nullable=false)
+    private int id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
-
-    @OneToMany(mappedBy = "personProfile")
-    private List<Address> addresses;
-
-    @OneToMany(mappedBy = "personProfile")
-    private List<Department> departments;
-
-    @OneToMany(mappedBy = "personProfile")
-    private List<Email> emails;
-
-    @OneToMany(mappedBy = "personProfile")
-    private List<EmploymentRecord> employmentRecords;
-
-    @OneToMany(mappedBy = "personProfile")
-    private List<Phones> phones;
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "personProfile",  cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Address> addresses = new ArrayList<>();
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "personProfile",  cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Department_assignment> departments = new ArrayList<>();
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "personProfile",  cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Email> emails = new ArrayList<>();
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "personProfile",  cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<EmploymentRecord> employmentRecords = new ArrayList<>();
+    
+    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "personProfile",  cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Phones> phones = new ArrayList<>();
 
     public List<Phones> getPhones() {
 
@@ -54,11 +71,11 @@ public class PersonProfile {
         this.emails = emails;
     }
 
-    public List<Department> getDepartments() {
+    public List<Department_assignment> getDepartments() {
         return departments;
     }
 
-    public void setDepartments(List<Department> departments) {
+    public void setDepartments(List<Department_assignment> departments) {
         this.departments = departments;
     }
 
@@ -70,11 +87,11 @@ public class PersonProfile {
         this.addresses = addresses;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

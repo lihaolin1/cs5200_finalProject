@@ -3,29 +3,34 @@ package edu.northeastern.cs5200.Tables;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Exam {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-//    private String essayQuestion;
-//    private String multipleChoiceQuestion;
-//    private String fillInTheBlank;
+public class Exam extends LearningModule{
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
+	private String exam_name;
 
-    @OneToMany(mappedBy = "exam")
-    private List<EssayQuestion> essayQuestions;
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "exam")
+    private List<EssayQuestion> essayQuestions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "exam")
-    private List<FillInTheBlank> fillInTheBlanks;
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "exam")
+    private List<FillInTheBlank> fillInTheBlanks = new ArrayList<>();
 
-    @ManyToOne
-    @JsonIgnore
-    private LearningModule learningModule;
-
-    @OneToMany(mappedBy = "exam")
-    private List<MultipleChoiceQuestion> multipleChoiceQuestions;
+//    @ManyToOne
+//    @JsonIgnore
+//    private LearningModule learningModule;
+	@Fetch(FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "exam")
+    private List<MultipleChoiceQuestion> multipleChoiceQuestions = new ArrayList<>();
 
     public List<MultipleChoiceQuestion> getMultipleChoiceQuestions() {
         return multipleChoiceQuestions;
@@ -35,13 +40,13 @@ public class Exam {
         this.multipleChoiceQuestions = multipleChoiceQuestions;
     }
 
-    public LearningModule getLearningModule() {
-        return learningModule;
-    }
-
-    public void setLearningModule(LearningModule learningModule) {
-        this.learningModule = learningModule;
-    }
+//    public LearningModule getLearningModule() {
+//        return learningModule;
+//    }
+//
+//    public void setLearningModule(LearningModule learningModule) {
+//        this.learningModule = learningModule;
+//    }
 
     public List<FillInTheBlank> getFillInTheBlanks() {
         return fillInTheBlanks;
@@ -59,13 +64,13 @@ public class Exam {
         this.essayQuestions = essayQuestions;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
 
 //    public String getEssayQuestion() {
 //        return essayQuestion;
@@ -93,4 +98,12 @@ public class Exam {
 
     public Exam() {
     }
+
+	public String getExam_name() {
+		return exam_name;
+	}
+
+	public void setExam_name(String exam_name) {
+		this.exam_name = exam_name;
+	}
 }
